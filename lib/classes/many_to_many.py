@@ -1,8 +1,11 @@
 class Article:
+    all = []
+
     def __init__(self, author, magazine, title):
         self.author = author
         self.magazine = magazine
         self.title = title
+        type(self).all.append(self)
 
         # self.author.add_article(self.magazine, self.title)
 
@@ -42,7 +45,7 @@ class Article:
 class Author:
     def __init__(self, name):
         self._name = name
-        self.article_list = []
+        # self.article_list = []
 
     @property
     def name(self):
@@ -57,10 +60,11 @@ class Author:
             return None
     
     def add_article(self, magazine, title):
-        if not hasattr(self, "_name"):
-            raise ValueError("Author's name must be set before adding articles.")
-        new_article = Article(self, magazine, title)
-        self.article_list.append(new_article)
+        # if not hasattr(self, "_name"):
+        #     raise ValueError("Author's name must be set before adding articles.")
+        # new_article = Article(self, magazine, title)
+        # self.article_list.append(new_article)
+        return Article(self, magazine, title)
 
     def articles(self):
         # author_article_list = []
@@ -73,7 +77,7 @@ class Author:
         #         print(f"author's article list: {author_article_list}")
         #         print(f"self name: {self.name}")
         # return author_article_list
-        return [article.title for article in self.article_list if self == article.author]
+        return [article for article in Article.all if self == article.author]
         # return [article for article in self.article_list if self.name == article.author]
 
     
